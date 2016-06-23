@@ -4,7 +4,7 @@ this is just a test, but will be used as a template for the final bot
 Req:
 
 The discord.py lib.
-Install: ip install --upgrade discord.py
+Install: pip install --upgrade discord.py
 
 Async beta lib: pip install git+https://github.com/Rapptz/discord.py@async
 
