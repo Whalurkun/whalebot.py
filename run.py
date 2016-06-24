@@ -3,6 +3,7 @@ import asyncio
 import sys
 
 client = discord.Client()
+send_message = client.send_message
 
 @client.event
 async def on_ready():
@@ -28,22 +29,37 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    
+    author = message.author
+
     if message.content.startswith('!test'):
         counter = 0
-        tmp = await client.send_message(message.channel, 'Calculating messages...')
+        tmp = await send_message(message.channel, 'Calculating messages...')
         async for log in client.logs_from(message.channel, limit=100):
             if log.author == message.author:
                 counter += 1
 
-        await client.edit_message(tmp, 'Fuck that here is some random value {}.'.format(counter))
+        await client.edit_message(tmp, 'Fuck that here is some value {}.'.format(counter))
     elif message.content.startswith('!sleep'):
         await asyncio.sleep(5)
-        await client.send_message(message.channel, 'Done sleeping')
+        await send_message(message.channel, 'Done sleeping')
 
     elif message.content.startswith('!play'):
-        await client.send_message(message.channel, 'WIP')
-    elif message.content.startswith('!'):
-        await client.send_message(message.channel, 'Fuckoff, not a command yet.')
+        await client.join_voice_channel
+
+    elif message.content.startswith('.'):
+        await send_message(message.channel, 'not a command yet.')
+
+    elif message.content.startswith('!hi'):
+        await send_message(message.channel, 'Hello {}.'.format(author.mention))
+    elif message.content.startswith('hi'):
+        await send_message(message.channel, 'Hello {}.'.format(author.mention))
+    elif message.content.startswith('hello'):
+        await send_message(message.channel, 'Hello {}.'.format(author.mention))
 
 
-client.run(input('Token goes here>'))
+
+
+client.run('MTk1MTI0MTM3NDExMzQ2NDM0.Ck6ksg.RPJSNZpSH05wP-PZTEDgGGqeNWM')
+
+
