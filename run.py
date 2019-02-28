@@ -29,21 +29,33 @@ async def on_message(message):
             if log.author == message.author:
                 counter += 1
 
-        await client.edit_message(tmp, 'Fuck that here is some value {}.'.format(counter))
+        await client.edit_message(tmp, 'ere is some value {}.'.format(counter))
     elif message.content.startswith('.sleep'):
         await asyncio.sleep(5)
         await send_message(message.channel, 'Done sleeping')
 
-    elif message.content.startswith('.play'):
-            await client.join_voice_channel(author.voice_channel)
+    elif message.content.startswith('.play'): 
+        async def joinvoice():
+            #"""Joins your voice channel"""
+            author = message.author
+            voice_channel = author.voice_channel
+            vc = await client.join_voice_channel(voice_channel)            
+        await joinvoice()
+    
+    elif message.content.startswith('.state'):
+        print(client.servers)
+        for server in client.servers:
+            print("[Discord] %s: %s" % (server.name, server.id))
             
-    elif message.content.startswith('.hi'):
-        await send_message(message.channel, 'Hello {}.'.format(author.mention))
-    elif message.content.startswith('hi'):
-        await send_message(message.channel, 'Hello {}.'.format(author.mention))
-    elif message.content.startswith('hello'):
-        await send_message(message.channel, 'Hello {}.'.format(author.mention))
-        
+            #await client.close()
+    
+    elif message.content.startswith('.stop'):
+        async def leavevoice():
+            for x in client.voice_clients:
+                if(x.server == message.server):
+                    return await x.disconnect()
+        await leavevoice()
+
     elif message.content.startswith('.secret'):
         await send_message(message.channel, join)
 
@@ -54,4 +66,4 @@ async def on_message(message):
 
 
 
-client.run('token')
+client.run('MTk1MTI0MTM3NDExMzQ2NDM0.D1kh2g.Bu9Z2D6AFxBFdVxmA5AWghJQxQo')
