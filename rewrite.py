@@ -17,8 +17,6 @@ async def on_message(message):
     global vc
     my_user = client.get_user(my_id) 
 
-    
-    #print(message.channel.name)
     if message.author != client.user: 
         print('[INFO]: Message in [{0.guild} - #{0.channel}] from {0.author}: {1.content}'.format(message, message))
         await my_user.send('Message in [{0.guild} - #{0.channel}] from {0.author}: {1.content}'.format(message, message))
@@ -26,7 +24,6 @@ async def on_message(message):
         return
 
     if message.content.startswith('.test'):
-        #print("USER: {0.author} has summoned us to [{0.author.voice.channel}]".format(message))
         ### Check if message is sent in a discord server or not. Otherwise I will get an error if I try to check voice state \/
         if message.guild != None:
             ### Check that the message author is in a voice channel, again to not cause any errors
